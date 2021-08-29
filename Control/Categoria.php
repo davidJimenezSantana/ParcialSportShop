@@ -28,6 +28,14 @@ class Categoria{
         return $categorias;
     }
 
+    public function consultar(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> categoriaDaO -> consultar());
+        $resultado = $this -> conexion -> extraer();
+        $this -> nombre = $resultado[0]; 
+        $this -> conexion -> cerrar();
+    }
+
 
     /**
      * Get the value of id

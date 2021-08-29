@@ -5,7 +5,7 @@
         private $id;
         private $nombre;
 
-        public function TallaDAO($id="", $nombre=""){
+        function __construct($id="", $nombre=""){
             $this -> id = $id;
             $this -> nombre = $nombre;
         }
@@ -14,6 +14,12 @@
             return "select idtalla, nombre
                     from talla
                     order by idtalla asc";
+        }
+
+        public function consultar(){
+            return "select nombre
+                    from talla
+                    where idtalla = " . $this -> id;        
         }
         
 

@@ -16,51 +16,57 @@
     </div>
 
     <?php
-    $cant = 0;
+    $cantidad = 0;
     if (isset($_POST["numPro"])) {
-        $cant = $_POST["numPro"];
+        $cantidad = $_POST["numPro"];
     }
 
 
-    if ($cant > 0) {
+    if ($cantidad > 0) {
         $aux = 0;
-        while ($aux < $cant) {
+        while ($aux < $cantidad) {
     ?>
 
-            <form style="width: 40%; color:snow" method="post">
-                <div class="mb-3">
-                    <label class="form-label">Nombre</label>
-                    <input type="text" class="form-control" name="nombre<?php echo ($aux + 1) ?>">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Precio</label>
-                    <input type="text" class="form-control" name="precio<?php echo ($aux + 1) ?>">
-                </div>
-                <div class="mb-3 ">
-                    <label class="form-label">Talla</label>
-                    <select id="numPro" type="number" name="talla<?php echo ($aux + 1) ?>">
-                        <?php
-                        $talla = new Talla();
-                        $tallas = $talla->consultarTodos();
-                        foreach ($tallas as $tallasActual) {
-                            echo "<option value='" . $tallasActual->getId() . "'>" . $tallasActual->getNombre() . "</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="mb-3 ">
-                    <label class="form-label">Categoria: </label>
+            <h1 style="color: snow; margin: top 5%;">Producto <?php echo ($aux + 1) ?></h1>
+            <form action="index.php?pid=<?php echo base64_encode('Vista/addproducto.php')?>&cant=<?php echo $cantidad ?>" style="width: 40%; color:snow" method="post">
+                <div style="padding: 3px 10px;  border: PowderBlue 5px solid;  border-radius: 20px;">
 
-                    <select id="numPro" type="number" name="categoria<?php echo ($aux + 1) ?>">
-                        <?php
-                        $categoria = new Categoria();
-                        $categorias = $categoria->consultarTodos();
-                        foreach ($categorias as $categoriaActual) {
-                            echo "<option value='" . $categoriaActual->getId() . "'>" . $categoriaActual->getNombre() . "</option>";
-                        }
-                        ?>
-                    </select>
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="nombre<?php echo ($aux) ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Precio</label>
+                        <input type="text" class="form-control" name="precio<?php echo ($aux) ?>">
+                    </div>
+                    <div class="mb-3 ">
+                        <label class="form-label">Talla</label>
+                        <select id="numPro" type="number" name="talla<?php echo ($aux) ?>">
+                            <?php
+                            $talla = new Talla();
+                            $tallas = $talla->consultarTodos();
+                            foreach ($tallas as $tallasActual) {
+                                echo "<option value='" . $tallasActual->getId() . "'>" . $tallasActual->getNombre() . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="mb-3 ">
+                        <label class="form-label">Categoria: </label>
+
+                        <select id="numPro" type="number" name="categoria<?php echo ($aux) ?>">
+                            <?php
+                            $categoria = new Categoria();
+                            $categorias = $categoria->consultarTodos();
+                            foreach ($categorias as $categoriaActual) {
+                                echo "<option value='" . $categoriaActual->getId() . "'>" . $categoriaActual->getNombre() . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+
                 </div>
+
 
 
             <?php
@@ -69,23 +75,10 @@
             ?>
             <button type="submit" class="btn btn-primary" name="guardar">Guardar</button>
             </form>
+
         <?php
 
-
     }
-
-    if (isset($_POST["guardar"])) {
-        for ($i = 0; $i <= $cant; $i++) {
-            $nombre = $_POST["nombre" . ($i+1)];
-            $precio = $_POST["precio" . ($i+1)];
-            $talla = $_POST["talla" . ($i+1)];
-            $categoria = $_POST["categoria" . ($i+1)];
-            $producto = new Producto("", $nombre, $precio, $talla, $categoria);
-            $producto->insertar();
-        }
-    }
-
-
 
         ?>
 

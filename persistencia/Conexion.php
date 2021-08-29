@@ -26,7 +26,8 @@ class Conexion{
     public function extraer(){
         return $this -> resultado -> fetch_row();
     }
-    
+
+      
     public function numFilas(){
         return ($this -> resultado != null) ? $this -> resultado -> num_rows : 0; 
     }

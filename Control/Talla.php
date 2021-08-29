@@ -6,19 +6,19 @@ class Talla{
 
     private $id;
     private $nombre;
-    private $tallaDaO;
+    private $tallaDAO;
     private $conexion;
 
      function __construct($id = "",$nombre =""){
         $this->id = $id;
         $this->nombre = $nombre;
         $this->conexion = new Conexion();
-        $this->tallaDaO = new TallaDAO($id,$nombre);
+        $this->tallaDAO = new TallaDAO($id,$nombre);
     }
 
     public function consultarTodos(){
         $this -> conexion -> abrir();
-        $this -> conexion -> ejecutar($this -> tallaDaO -> consultarTodos());
+        $this -> conexion -> ejecutar($this -> tallaDAO -> consultarTodos());
 
         $tallas = array();
         while(($resultado = $this -> conexion -> extraer()) != null){
@@ -26,6 +26,14 @@ class Talla{
         }
         $this -> conexion -> cerrar();
         return $tallas;
+    }
+
+    public function consultar(){
+        $this -> conexion -> abrir();
+        $this -> conexion -> ejecutar($this -> tallaDAO -> consultar());
+        $resultado = $this -> conexion -> extraer();
+        $this -> nombre = $resultado[0]; 
+        $this -> conexion -> cerrar();
     }
 
 
